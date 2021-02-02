@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import fetchAccounts from './actions/fetchAccounts'
+// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Home from "./content/Home";
-export default class App extends Component {
+// import Home from "./content/Home";
+class App extends Component {
   componentDidMount() {
-    fetch("http://127.0.0.1:3000/api/v1/accounts")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    this.props.fetchAccounts({type: 'FETCH_ACCOUNTS', payload: {name: 'food_trucks'}})
   }
   render() {
-    return (
-      <div className="App">
-        <Router>
-          <Home />
-        </Router>
-      </div>
-    );
+    return <div className="App">asdasdasdasd</div>;
   }
-}
+
+  // mapStateToProps = (state) => {
+  //   return {
+  //     accounts: state.accounts
+  //   }
+  // }
+ }
+export default connect(null, {fetchAccounts})(App);
