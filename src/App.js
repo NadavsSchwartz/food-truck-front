@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import fetchAccounts from './actions/fetchAccounts'
+import AccountsContainer from './containers/AccountsContainer'
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-// import Home from "./content/Home";
+ import Home from "./content/Home";
 class App extends Component {
   componentDidMount() {
-    this.props.fetchAccounts({type: 'FETCH_ACCOUNTS', payload: {name: 'food_trucks'}})
+    // this.props.fetchAccounts({type: 'FETCH_ACCOUNTS', payload: {name: 'food_trucks'}})
   }
   render() {
-    return <div className="App">asdasdasdasd</div>;
+    return (
+      <div className="App">
+        <AccountsContainer />
+        <Home />
+      </div>
+    );
   }
 
   // mapStateToProps = (state) => {
@@ -18,4 +23,4 @@ class App extends Component {
   //   }
   // }
  }
-export default connect(null, {fetchAccounts})(App);
+export default connect()(App);
