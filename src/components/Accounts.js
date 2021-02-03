@@ -1,13 +1,12 @@
-import React from "react";
 
 function Accounts({ accounts }) {
   return (
     <div className="card">
-      {accounts.map((acc) => 
+      {accounts.map((acc) => (
         <li key={acc.id}>
-          {acc.name} - {acc.food_trucks.length}
+          {acc.name} - {acc.email}
         </li>
-      )}
+      ))}
     </div>
   );
 }
