@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Form extends Component {
+class signUpForm extends Component {
   state = {
     name: "",
     email: "",
@@ -15,6 +15,11 @@ class Form extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state);
+    this.setState({
+      name: "",
+      email: "",
+      password: "",
+    });
   };
   render() {
     return (
@@ -92,4 +97,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default signUpForm;

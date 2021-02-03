@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {addAccount} from "../actions/addAccount";
-import Form from "../components/Form";
+import { addAccount } from "../actions/addAccount";
+import signUpForm from "../components/signUpForm";
+import signInForm from "../components/signUpForm";
 
 class AccountInput extends Component {
   render() {
     return (
       <div>
-        <Form onSubmit={this.props.addAccount} />
+        <signUpForm onSubmit={this.props.addAccount} />
       </div>
     );
   }
