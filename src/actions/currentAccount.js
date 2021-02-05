@@ -1,7 +1,6 @@
 import { resetLoginForm } from "./handleLoginForm";
 import { resetSignupForm } from "./handleSignupForm";
 
-// synchronous action creators
 export const setCurrentAccount = (account) => {
   return {
     type: "SET_CURRENT_ACCOUNT",
@@ -15,7 +14,6 @@ export const clearCurrentAccount = () => {
   };
 };
 
-// asynchronous action creators
 export const login = (credentials, history) => {
   return (dispatch) => {
     return fetch("http://localhost:3000/api/v1/login", {
@@ -78,6 +76,7 @@ export const logout = () => {
 };
 
 export const getCurrentAccount = () => {
+  console.log("hello");
   return (dispatch, getState) => {
     console.log(getState());
     return fetch("http://localhost:3000/api/v1/get_current_account", {
@@ -86,16 +85,14 @@ export const getCurrentAccount = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => {
-        res.json();
-      })
+      .then((res) => res.json())
       .then((response) => {
         if (response.error) {
           console.log(response.error);
         } else {
           console.log(response.account);
           if (
-            response.account.loggedIn &&
+            response.loggedIn &&
             getState().currentAccount.loggedIn === false
           ) {
             dispatch(setCurrentAccount(response.account));
@@ -105,24 +102,3 @@ export const getCurrentAccount = () => {
       .catch(console.log);
   };
 };
-
-// export const getAccountsFoodtruck = (account) => {
-//   return (dispatch, getState) => {
-//     console.log(getState());
-//     return fetch(`http://localhost:3000/api/v1/accounts/${account.id}`, {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((res) => res.json())
-//       .then((response) => {
-//         if (response.error) {
-//           alert(response.error);
-//         } else {
-//           dispatch(setAccountsFoodtrucks(response.data));
-//         }
-//       })
-//       .catch(console.log);
-//   };
-// };

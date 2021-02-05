@@ -1,33 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { createFoodtruck } from "../../actions/foodtruckReducer";
+import { createFoodtruck } from "../../actions/foodTruck";
+import { updateFoodtruckForm } from "../../actions/handleNewFoodtruckForm";
 
-
-class NewFoodtruck extends React.Component {
-  state = {
-    name: "",
-    location: "",
-    category: "",
-    hours: "",
-    score: 0,
-    description: "",
-    account_id: this.props.currentAccount.account.action.id,
+const NewFoodtruck = ({
+  foodtruckFormData,
+  updateFoodtruckForm,
+  createFoodtruck,
+  currentAccount,
+  loggedIn,
+}) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const updatedFormInfo = {
+      ...foodtruckFormData,
+      [name]: value,
+    };
+    updateFoodtruckForm(updatedFormInfo);
   };
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-     const accountId = this.props.currentAccount.account.action.id;
-    createFoodtruck(this.state)
+    const accountId = currentAccount.account.action.id;
+    createFoodtruck(foodtruckFormData, accountId);
   };
 
-  renderForm = () => {
-    if (this.props.loggedIn && this.props.currentAccount.account.action) {
+  const renderForm = () => {
+    if (loggedIn && currentAccount.account.action) {
       return (
         <div
           className="section"
@@ -50,7 +50,7 @@ class NewFoodtruck extends React.Component {
                   border: "1px solid #EEE",
                 }}
               >
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col s12">
                       <label htmlFor="name"></label>
@@ -58,8 +58,8 @@ class NewFoodtruck extends React.Component {
                         className="validate"
                         type="text"
                         name="name"
-                        value={this.state.name}
-                        onChange={this.handleChange}
+                        value={foodtruckFormData.name}
+                        onChange={handleChange}
                         placeholder="Enter the Foodtruck name"
                         required
                       ></input>
@@ -72,8 +72,8 @@ class NewFoodtruck extends React.Component {
                         className="validate"
                         type="text"
                         name="location"
-                        value={this.state.location}
-                        onChange={this.handleChange}
+                        value={foodtruckFormData.location}
+                        onChange={handleChange}
                         placeholder="Enter The Foodtruck location"
                         required
                       ></input>
@@ -86,8 +86,8 @@ class NewFoodtruck extends React.Component {
                         className="validate"
                         type="text"
                         name="category"
-                        value={this.state.category}
-                        onChange={this.handleChange}
+                        value={foodtruckFormData.category}
+                        onChange={handleChange}
                         placeholder="Enter The Foodtruck category"
                         required
                       ></input>
@@ -100,8 +100,8 @@ class NewFoodtruck extends React.Component {
                         className="validate"
                         type="text"
                         name="hours"
-                        value={this.state.hours}
-                        onChange={this.handleChange}
+                        value={foodtruckFormData.hours}
+                        onChange={handleChange}
                         placeholder="Enter The Foodtruck hours"
                         required
                       ></input>
@@ -114,8 +114,8 @@ class NewFoodtruck extends React.Component {
                         className="validate"
                         type="text"
                         name="description"
-                        value={this.state.description}
-                        onChange={this.handleChange}
+                        value={foodtruckFormData.description}
+                        onChange={handleChange}
                         placeholder="Enter The Foodtruck description"
                         required
                       ></input>
@@ -131,8 +131,8 @@ class NewFoodtruck extends React.Component {
                         name="score"
                         min="0"
                         max="10"
-                        value={this.state.score}
-                        onChange={this.handleChange}
+                        value={foodtruckFormData.score}
+                        onChange={handleChange}
                         placeholder="Enter The Foodtruck score"
                         required
                       ></input>
@@ -153,15 +153,18 @@ class NewFoodtruck extends React.Component {
     }
   };
 
-  render() {
-    return <div>{this.renderForm()}</div>;
-  }
-}
+  return <div>{renderForm()}</div>;
+};
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     currentAccount: state.currentAccount,
     loggedIn: !!state.currentAccount,
+    foodtruckFormData: state.NewFoodtruckReducer,
   };
 };
 
-export default connect(mapStateToProps, { createFoodtruck })(NewFoodtruck);
+export default connect(mapStateToProps, {
+  updateFoodtruckForm,
+  createFoodtruck,
+})(NewFoodtruck);

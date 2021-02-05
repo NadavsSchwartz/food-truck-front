@@ -3,7 +3,10 @@ import {
   setAllFoodtrucks,
   fetchFoodtruck,
 } from "../reducers/foodtruckReducer";
-import axios from "axios";
+import {
+  updateFoodtruckForm,
+  resetFoodtruckForm,
+} from "./handleNewFoodtruckForm";
 
 export const getAllFoodtrucks = (accountId) => {
   return (dispatch, getState) => {
@@ -55,12 +58,7 @@ export const getFoodtruck = (accountId, foodtruckId) => {
   };
 };
 
-export const updateFoodtruck = (
-  foodtruckData,
-  accountId,
-  foodtruckId,
-  history
-) => {
+export const updateFoodtruck = (foodtruckData, accountId, foodtruckId) => {
   return (dispatch) => {
     const sendableFoodtruckData = {
       name: foodtruckData.name,
@@ -89,7 +87,7 @@ export const updateFoodtruck = (
             alert(response.error);
           } else {
             dispatch(updateFoodtruck(response.data));
-            history.push(`/accounts/${accountId}/food_trucks/${foodtruckId}`);
+            dispatch(updateFoodtruckForm());
           }
         })
         .catch(console.log)
@@ -97,24 +95,30 @@ export const updateFoodtruck = (
   };
 };
 
-export const createFoodtruck = (foodtruckData) => {
-  const url = `http://localhost:3000/api/v1/accounts/${foodtruckData.account_id}/food_trucks`;
+export const createFoodtruck = (foodData, accountId) => {
+  const foodtruckData = {
+    food_truck: foodData,
+  };
+  const url = `http://localhost:3000/api/v1/accounts/${accountId}/food_trucks`;
   return (dispatch) => {
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(foodtruckData),
-  })
-    .then((resp) => resp.json())
-    .then((resp) => {
-      debugger;
-      if (resp.error) {
-        alert(resp.error);
-      } else {
-         dispatch(addFoodtruck(resp.data));
-      }
+    return fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(foodtruckData),
     })
-    .catch(console.log);
+      .then((resp) => resp.json())
+      .then((resp) => {
+        debugger;
+        if (resp.error) {
+          alert(resp.error);
+        } else {
+          dispatch(addFoodtruck(resp.data));
+          dispatch(resetFoodtruckForm());
+          alert("account created successfuly.");
+        }
+      })
+      .catch(console.log);
+  };
 };

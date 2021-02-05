@@ -10,7 +10,7 @@ import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 
 class App extends Component {
   componentDidMount() {
-    getCurrentAccount();
+    this.props.getCurrentAccount();
   }
 
   render() {

@@ -56,9 +56,4 @@ export const fetchFoodtruck = (foodtruck) => {
     foodtruck,
   };
 };
-// case "UPDATE_FOODTRUCK_FORM":
-//   return action.formData;
-// case "RESET_FOODTRUCK_FORM":
-//   return initialState;
-// default:
-//   return state;
+
