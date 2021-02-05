@@ -1,26 +1,39 @@
 import React, { Component } from "react";
+import Navbar from "./components/NavBar";
+import NewFoodtruck from "./components/sessions/NewFoodtruck";
+import Login from "./components/sessions/Login";
+import Home from "./containers/Home";
+import Signup from "./components/sessions/Signup";
 import { connect } from "react-redux";
-import AccountsContainer from './containers/AccountsContainer'
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { getCurrentAccount } from "./actions/currentAccount";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 
- import Home from "./content/Home";
 class App extends Component {
   componentDidMount() {
-    // this.props.fetchAccounts({type: 'FETCH_ACCOUNTS', payload: {name: 'food_trucks'}})
+    getCurrentAccount();
   }
+
   render() {
     return (
       <div className="App">
-        <AccountsContainer />
-        <Home />
+        <Navbar />
+        <Switch>
+          <Route
+            exact
+            path="/signup"
+            render={({ history }) => <Signup history={history} />}
+          />
+          <Route
+            path="/accounts/:id/food_trucks/new"
+            component={NewFoodtruck}
+          />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
+          {/* <Redirect to="/no-match" /> */}
+        </Switch>
       </div>
     );
   }
+}
 
-  // mapStateToProps = (state) => {
-  //   return {
-  //     accounts: state.accounts
-  //   }
-  // }
- }
-export default connect()(App);
+export default withRouter(connect(null, { getCurrentAccount })(App));
