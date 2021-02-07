@@ -8,24 +8,21 @@ import {
   resetFoodtruckForm,
 } from "./handleNewFoodtruckForm";
 
-export const getAllFoodtrucks = (accountId) => {
+export const getAllFoodtrucks = () => {
   return (dispatch, getState) => {
     console.log(getState());
-    return fetch(
-      `http://localhost:3000/api/v1/accounts/${accountId}/food_trucks`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    return fetch(`http://localhost:3000/api/v1/foodtrucks`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((response) => {
         if (response.error) {
           alert(response.error);
         } else {
-          dispatch(setAllFoodtrucks(response.data));
+          dispatch(setAllFoodtrucks(response));
         }
       })
       .catch(console.log);
@@ -50,7 +47,7 @@ export const getFoodtruck = (accountId, foodtruckId) => {
           if (response.error) {
             alert(response.error);
           } else {
-            dispatch(fetchFoodtruck(response.data));
+            dispatch(fetchFoodtruck(response));
           }
         })
         .catch(console.log)
@@ -71,7 +68,7 @@ export const updateFoodtruck = (foodtruckData, accountId, foodtruckId) => {
     };
     return (
       fetch(
-        `http://localhost:3000/api/v1/accounts/${accountId}/food_trucks/${foodtruckId}`
+        `http://localhost:3000/api/v1/accounts/${accountId}/foodtrucks/${foodtruckId}`
       ),
       {
         method: "PATCH",
@@ -86,7 +83,7 @@ export const updateFoodtruck = (foodtruckData, accountId, foodtruckId) => {
           if (response.error) {
             alert(response.error);
           } else {
-            dispatch(updateFoodtruck(response.data));
+            dispatch(updateFoodtruck(response));
             dispatch(updateFoodtruckForm());
           }
         })
@@ -99,7 +96,7 @@ export const createFoodtruck = (foodData, accountId) => {
   const foodtruckData = {
     food_truck: foodData,
   };
-  const url = `http://localhost:3000/api/v1/accounts/${accountId}/food_trucks`;
+  const url = `http://localhost:3000/api/v1/accounts/${accountId}/foodtrucks`;
   return (dispatch) => {
     return fetch(url, {
       method: "POST",
@@ -108,15 +105,14 @@ export const createFoodtruck = (foodData, accountId) => {
       },
       body: JSON.stringify(foodtruckData),
     })
-      .then((resp) => resp.json())
-      .then((resp) => {
-        debugger;
-        if (resp.error) {
-          alert(resp.error);
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.error) {
+          alert(response.error);
         } else {
-          dispatch(addFoodtruck(resp.data));
+          dispatch(addFoodtruck(response));
           dispatch(resetFoodtruckForm());
-          alert("account created successfuly.");
+          alert("New Foodtruck Added successfully successfuly.");
         }
       })
       .catch(console.log);

@@ -1,11 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import { getAllFoodtrucks } from ".././actions/foodTruck";
 
-const Foodtruck = (props) => {
-  return (
-    <div>
-      {props.foodtruck &&
-        props.foodtruck.map((ft) => <div key={ft.id}>{ft.name}</div>)}
-    </div>
-  );
+const Foodtruck = ({ currentAccount, loggedIn, getAllFoodtrucks }) => {
+  // getAllFoodtrucks(currentAccount.account.action.id);
+
+  return <div>asd</div>;
 };
-export default Foodtruck;
+const mapStateToProps = (state) => {
+  return {
+    currentAccount: state.currentAccount,
+    loggedIn: !!state.currentAccount,
+  };
+};
+export default connect(mapStateToProps, { logout })(Foodtruck);

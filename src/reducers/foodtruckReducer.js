@@ -4,38 +4,46 @@ const initialState = {
 
 export default function manageFoodtruck(state = initialState, action) {
   switch (action.type) {
+    case "SET_ALL_FOODTRUCKS":
+      return {
+        ...state,
+        allFoodtrucks: action.action,
+      };
     case "FETCH_FOODTRUCK":
       return {
         ...state,
-        foodtruck: action.foodtruck,
+        allFoodtrucks: action.action,
       };
     case "ADD_FOODTRUCK":
       return {
         ...state,
-        allFoodtrucks: [...state.allFoodtrucks, action.foodtruck],
+        allFoodtrucks: [...state.allFoodtrucks, action.action],
       };
     case "UPDATE_FOODTRUCK":
       return {
         ...state,
         allFoodtrucks: state.allFoodtrucks.map((foodtruck) => {
           if (action.foodtruck.id === foodtruck.id) {
-            return action.foodtruck;
+            return action.action;
           }
           return foodtruck;
         }),
       };
+    case "DELETE_FOODTRUCK"
+      return {
+        
+      }
     default:
       return state;
   }
 }
 
-export const setAllFoodtrucks = (allFoodtrucks) => {
+export const setAllFoodtrucks = (allTrucks) => {
   return {
     type: "SET_ALL_FOODTRUCKS",
-    allFoodtrucks,
+    action: allTrucks,
   };
 };
-
 
 export const addFoodtruck = (foodtruck) => {
   return {
@@ -46,14 +54,20 @@ export const addFoodtruck = (foodtruck) => {
 export const updateFoodtruck = (foodtruck) => {
   return {
     type: "UPDATE_FOODTRUCK",
-    foodtruck,
+    action: foodtruck,
   };
 };
 
 export const fetchFoodtruck = (foodtruck) => {
   return {
     type: "FETCH_FOODTRUCK",
-    foodtruck,
+    action: foodtruck,
   };
 };
 
+export const deleteFoodtruck = (foodtruck) => {
+  return {
+    type: "DELETE_FOODTRUCK",
+    action: foodtruck,
+  };
+};

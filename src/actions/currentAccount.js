@@ -80,6 +80,7 @@ export const getCurrentAccount = () => {
   return (dispatch, getState) => {
     console.log(getState());
     return fetch("http://localhost:3000/api/v1/get_current_account", {
+      credentials: "include",
       method: "GET",
       headers: {
         "Content-Type": "application/json",

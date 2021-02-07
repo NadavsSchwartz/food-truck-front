@@ -15,6 +15,7 @@ const NewFoodtruck = ({
     const { name, value } = e.target;
     const updatedFormInfo = {
       ...foodtruckFormData,
+      ["account_id"]: currentAccount.account.action.id,
       [name]: value,
     };
     updateFoodtruckForm(updatedFormInfo);
@@ -156,7 +157,6 @@ const NewFoodtruck = ({
   return <div>{renderForm()}</div>;
 };
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     currentAccount: state.currentAccount,
     loggedIn: !!state.currentAccount,

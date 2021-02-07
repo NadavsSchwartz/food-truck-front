@@ -1,5 +1,4 @@
 import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
 import { logout } from "../actions/currentAccount";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -26,8 +25,7 @@ const NavBar = (props) => {
               </Link>
             </li>
             <li onClick={logoutRedirect}>
-              {" "}
-              <Link to={"/"}>Log out</Link>
+              <Link to="/">Log out</Link>
             </li>
           </ul>
         </div>

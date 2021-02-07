@@ -7,10 +7,12 @@ import Signup from "./components/sessions/Signup";
 import { connect } from "react-redux";
 import { getCurrentAccount } from "./actions/currentAccount";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import { getAllFoodtrucks } from "./actions/foodTruck";
 
 class App extends Component {
   componentDidMount() {
     this.props.getCurrentAccount();
+    this.props.getAllFoodtrucks();
   }
 
   render() {
@@ -36,4 +38,6 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(null, { getCurrentAccount })(App));
+export default withRouter(
+  connect(null, { getCurrentAccount, getAllFoodtrucks })(App)
+);
