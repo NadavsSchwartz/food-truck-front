@@ -4,7 +4,6 @@ import currentAccount from "./reducers/currentAccount";
 import loginReducer from "./reducers/loginReducer";
 import signupReducer from "./reducers/signupReducer";
 import foodtruckReducer from "./reducers/foodtruckReducer";
-import NewFoodtruckReducer from './reducers/newFoodtruckReducer'
 
 import thunk from "redux-thunk";
 
@@ -14,7 +13,6 @@ const reducer = combineReducers({
   loginReducer,
   signupReducer,
   foodtruckReducer,
-  NewFoodtruckReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

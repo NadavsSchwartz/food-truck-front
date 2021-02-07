@@ -19,7 +19,7 @@ const NavBar = (props) => {
           <ul id="nav-mobile" className="right center-on-med-and-down">
             <li>
               <Link
-                to={`/accounts/${props.currentAccount.account.action.id}/food_trucks/new`}
+                to={`/accounts/${props.currentAccount.account.action.id}/foodtrucks/new`}
               >
                 New Foodtruck
               </Link>
@@ -40,7 +40,7 @@ const NavBar = (props) => {
 
             <ul id="nav-mobile" className="right center-on-med-and-down">
               <li>
-                <Link to="/" className="strongxf">
+                <Link to="/" className="">
                   Home
                 </Link>
               </li>

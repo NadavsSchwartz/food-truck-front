@@ -3,18 +3,15 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const FoodtruckCard = ({ foodtruck, currentAccount, loggedIn }) => {
+  debugger;
   if (foodtruck && loggedIn) {
     return (
-      <div className="row center">
+      <div className="center">
         <div className="col s12 m5">
           <div className="card blue-grey">
             <div className="card-content white-text">
               <div className="card-title">
                 <p className="flow-text">{foodtruck.name}</p>
-                <a className="btn">
-                  That foodtruck was added by
-                  {foodtruck.account_id}
-                </a>
                 <p>{foodtruck.description}</p>
               </div>
               <div className="row">
@@ -24,11 +21,25 @@ const FoodtruckCard = ({ foodtruck, currentAccount, loggedIn }) => {
                 <div className="col s3">Score: {foodtruck.score}</div>
               </div>
               <div className="card-action">
-                <a href="">more details</a>
+                <Link
+                  to={`/accounts/${foodtruck.account_id}/foodtrucks/${foodtruck.id}`}
+                >
+                  More Details
+                </Link>
                 {foodtruck.account_id === currentAccount.account.action.id ? (
-                  <Link to={`/food_truck/${foodtruck.id}/edit`}>EDIT</Link>
+                  <p>
+                    <Link
+                      to={`/accounts/${foodtruck.account_id}/foodtrucks/${foodtruck.id}/edit`}
+                    >
+                      EDIT
+                    </Link>
+                    <Link
+                      to={`/accounts/${foodtruck.account_id}/foodtrucks/${foodtruck.id}/delete`}
+                    >
+                      delete
+                    </Link>
+                  </p>
                 ) : null}
-                <a href="">delete</a>
               </div>
             </div>
             {/* <div className="edit">
@@ -49,7 +60,7 @@ const FoodtruckCard = ({ foodtruck, currentAccount, loggedIn }) => {
       </div>
     );
   } else if (foodtruck) {
-    return <div className="card">Under Construction</div>;
+    return "a";
   }
   return <p>no foodtruck</p>;
 };
@@ -58,6 +69,7 @@ const mapStateToProps = (state) => {
   return {
     currentAccount: state.currentAccount,
     loggedIn: !!state.currentAccount,
+    allFoodtrucks: state.foodtruckReducer,
   };
 };
 

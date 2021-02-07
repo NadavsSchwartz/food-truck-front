@@ -23,16 +23,22 @@ export default function manageFoodtruck(state = initialState, action) {
       return {
         ...state,
         allFoodtrucks: state.allFoodtrucks.map((foodtruck) => {
-          if (action.foodtruck.id === foodtruck.id) {
+          if (action.action.id === foodtruck.id) {
             return action.action;
           }
           return foodtruck;
         }),
       };
-    case "DELETE_FOODTRUCK"
+    case "DELETE_FOODTRUCK":
       return {
-        
-      }
+        ...state,
+        allFoodtrucks: state.allFoodtrucks.map((foodtruck) => {
+          if (action.action.id === foodtruck.id) {
+            return action.action;
+          }
+          return foodtruck;
+        }),
+      };
     default:
       return state;
   }
@@ -51,7 +57,7 @@ export const addFoodtruck = (foodtruck) => {
     action: foodtruck,
   };
 };
-export const updateFoodtruck = (foodtruck) => {
+export const updateFoodtruckData = (foodtruck) => {
   return {
     type: "UPDATE_FOODTRUCK",
     action: foodtruck,
@@ -66,6 +72,7 @@ export const fetchFoodtruck = (foodtruck) => {
 };
 
 export const deleteFoodtruck = (foodtruck) => {
+  debugger;
   return {
     type: "DELETE_FOODTRUCK",
     action: foodtruck,

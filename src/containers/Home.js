@@ -6,7 +6,7 @@ class Home extends Component {
   renderFoodtruckCards = () => {
     if (this.props.allFoodtrucks) {
       const allFt = this.props.allFoodtrucks.allFoodtrucks;
-      return allFt.map((ft) => <FoodtruckCard foodtruck={ft} />);
+      return allFt.map((ft) => <FoodtruckCard key={ft.id} foodtruck={ft} />);
     }
     return (
       <div className="flow-text center">
@@ -15,7 +15,7 @@ class Home extends Component {
     );
   };
   render() {
-    return <div className="div">{this.renderFoodtruckCards()}mklml</div>;
+    return <div className="div">{this.renderFoodtruckCards()}</div>;
   }
 }
 const mapStateToProps = (state) => {

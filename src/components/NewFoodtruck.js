@@ -1,34 +1,53 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { createFoodtruck } from "../../actions/foodTruck";
-import { updateFoodtruckForm } from "../../actions/handleNewFoodtruckForm";
-
-const NewFoodtruck = ({
-  foodtruckFormData,
-  updateFoodtruckForm,
-  createFoodtruck,
-  currentAccount,
-  loggedIn,
-}) => {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const updatedFormInfo = {
-      ...foodtruckFormData,
-      ["account_id"]: currentAccount.account.action.id,
-      [name]: value,
-    };
-    updateFoodtruckForm(updatedFormInfo);
+class NewFoodtruck extends React.Component {
+  state = {
+    name: "",
+    location: "",
+    category: "",
+    hours: "",
+    score: 0,
+    description: "",
+    account_id: this.props.account_id,
+  };
+  componentDidMount() {
+    console.log(this.props);
+    // if (this.props.foodTruck) {
+    //   const { foodTruck } = this.props.foodTruck;
+    //   this.setState({
+    //     name: foodTruck.name,
+    //     location: foodTruck.location,
+    //     category: foodTruck.category,
+    //     hours: foodTruck.hours,
+    //     description: foodTruck.description,
+    //     score: foodTruck.score,
+    //   });
+    // }
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    const accountId = currentAccount.account.action.id;
-    createFoodtruck(foodtruckFormData, accountId);
+    const accountId = this.state.account_id;
+    if (this.props.ftId) {
+      const foodTruckId = this.props.ftId;
+      this.props.onSubmit(
+        this.state,
+        accountId,
+        foodTruckId,
+        this.props.history
+      );
+    } else {
+      this.props.onSubmit(this.state, accountId);
+    }
   };
 
-  const renderForm = () => {
-    if (loggedIn && currentAccount.account.action) {
+  renderForm = () => {
+    if (this.props) {
       return (
         <div
           className="section"
@@ -40,9 +59,7 @@ const NewFoodtruck = ({
         >
           <div className="center">
             <div className="container">
-              <h5 className="indigo-text">
-                Add a new FoodTruck to your profile!
-              </h5>
+              <h5 className="indigo-text">{this.props.buttonText}</h5>
               <div
                 className="z-depth-1 grey lighten-4 container"
                 style={{
@@ -51,7 +68,7 @@ const NewFoodtruck = ({
                   border: "1px solid #EEE",
                 }}
               >
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
                   <div className="row">
                     <div className="col s12">
                       <label htmlFor="name"></label>
@@ -59,9 +76,9 @@ const NewFoodtruck = ({
                         className="validate"
                         type="text"
                         name="name"
-                        value={foodtruckFormData.name}
-                        onChange={handleChange}
-                        placeholder="Enter the Foodtruck name"
+                        value={this.state.name}
+                        onChange={this.handleChange}
+                        placeholder={this.state.name}
                         required
                       ></input>
                     </div>
@@ -73,9 +90,9 @@ const NewFoodtruck = ({
                         className="validate"
                         type="text"
                         name="location"
-                        value={foodtruckFormData.location}
-                        onChange={handleChange}
-                        placeholder="Enter The Foodtruck location"
+                        value={this.state.location}
+                        onChange={this.handleChange}
+                        placeholder={this.state.location}
                         required
                       ></input>
                     </div>
@@ -87,9 +104,9 @@ const NewFoodtruck = ({
                         className="validate"
                         type="text"
                         name="category"
-                        value={foodtruckFormData.category}
-                        onChange={handleChange}
-                        placeholder="Enter The Foodtruck category"
+                        value={this.state.category}
+                        onChange={this.handleChange}
+                        placeholder={this.state.category}
                         required
                       ></input>
                     </div>
@@ -101,9 +118,9 @@ const NewFoodtruck = ({
                         className="validate"
                         type="text"
                         name="hours"
-                        value={foodtruckFormData.hours}
-                        onChange={handleChange}
-                        placeholder="Enter The Foodtruck hours"
+                        value={this.state.hours}
+                        onChange={this.handleChange}
+                        placeholder={this.state.hours}
                         required
                       ></input>
                     </div>
@@ -115,9 +132,9 @@ const NewFoodtruck = ({
                         className="validate"
                         type="text"
                         name="description"
-                        value={foodtruckFormData.description}
-                        onChange={handleChange}
-                        placeholder="Enter The Foodtruck description"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                        placeholder={this.state.description}
                         required
                       ></input>
                     </div>
@@ -132,15 +149,15 @@ const NewFoodtruck = ({
                         name="score"
                         min="0"
                         max="10"
-                        value={foodtruckFormData.score}
-                        onChange={handleChange}
-                        placeholder="Enter The Foodtruck score"
+                        value={this.state.score}
+                        onChange={this.handleChange}
+                        placeholder={this.state.score}
                         required
                       ></input>
                     </p>
 
                     <button type="submit" className="btn indigo col s12">
-                      Submit
+                      {this.props.buttonText}
                     </button>
                   </div>
                 </form>
@@ -153,18 +170,9 @@ const NewFoodtruck = ({
       return <Redirect to="/"></Redirect>;
     }
   };
+  render() {
+    return <div>{this.renderForm()}</div>;
+  }
+}
 
-  return <div>{renderForm()}</div>;
-};
-const mapStateToProps = (state) => {
-  return {
-    currentAccount: state.currentAccount,
-    loggedIn: !!state.currentAccount,
-    foodtruckFormData: state.NewFoodtruckReducer,
-  };
-};
-
-export default connect(mapStateToProps, {
-  updateFoodtruckForm,
-  createFoodtruck,
-})(NewFoodtruck);
+export default NewFoodtruck;
