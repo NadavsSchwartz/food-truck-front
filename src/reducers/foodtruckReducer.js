@@ -30,6 +30,7 @@ export default function manageFoodtruck(state = initialState, action) {
         }),
       };
     case "DELETE_FOODTRUCK":
+      debugger;
       return {
         ...state,
         allFoodtrucks: state.allFoodtrucks.map((foodtruck) => {

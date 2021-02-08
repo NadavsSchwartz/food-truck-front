@@ -5,12 +5,7 @@ import {
   deleteFoodtruck,
   updateFoodtruckData,
 } from "../reducers/foodtruckReducer";
-import {
-  updateFoodtruckForm,
-  resetFoodtruckForm,
-} from "./handleNewFoodtruckForm";
-import { useHistory } from "react-router";
-
+import { resetFoodtruckForm } from "./handleNewFoodtruckForm";
 export const getAllFoodtrucks = () => {
   return (dispatch, getState) => {
     console.log(getState());
@@ -86,8 +81,7 @@ export const updateFoodtruck = (foodData, accountId, foodtruckId, history) => {
   };
 };
 
-export const createFoodtruck = (foodData, accountId) => {
-  debugger;
+export const createFoodtruck = (foodData, accountId, history) => {
   return (dispatch) => {
     const foodtruckData = {
       food_truck: foodData,
@@ -108,15 +102,16 @@ export const createFoodtruck = (foodData, accountId) => {
           dispatch(addFoodtruck(response));
           dispatch(resetFoodtruckForm());
           alert("New Foodtruck Added successfuly.");
+          history.push("/");
         }
       })
       .catch(console.log);
   };
 };
 
-export const removeFoodtruck = (foodtruckId, accountId) => {
-  const url = `http://localhost:3000/api/v1/accounts/${accountId}/foodtrucks/${foodtruckId}`;
+export const removeFoodtruck = (foodtruckId, accountId, history) => {
   return (dispatch) => {
+    const url = `http://localhost:3000/api/v1/accounts/${accountId}/foodtrucks/${foodtruckId}`;
     return fetch(url, {
       method: "DELETE",
       headers: {
@@ -130,6 +125,7 @@ export const removeFoodtruck = (foodtruckId, accountId) => {
         } else {
           dispatch(deleteFoodtruck(response));
           alert("Foodtruck deleted successfully.");
+          history.push("/");
         }
       })
       .catch(console.log);

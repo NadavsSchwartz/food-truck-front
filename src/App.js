@@ -28,6 +28,8 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
           <Route
             exact
             path="/signup"
@@ -40,7 +42,7 @@ class App extends Component {
               <NewFoodtruck
                 onSubmit={this.props.createFoodtruck}
                 {...props}
-                account_id={this.props.match.params.id}
+                account_id={this.props.currentAccount.account.action.id}
                 buttonText="Create A Foodtruck"
               />
             )}
@@ -48,16 +50,15 @@ class App extends Component {
           <Route
             exact
             path="/accounts/:id/foodtrucks/:id"
-            render={(props) => (
-              // const foodtruckId = this.props.match.params.id;
+            render={(props) => {
+              const foodtruckId = this.props.match.params.id;
               // const foodTruck = this.props.allFoodtrucks.find(
               //   (foodTruck) => foodTruck.id == foodtruckId
               // );
-              <FoodtruckCard {...props} />
-            )}
+              return <FoodtruckCard truck_id={foodtruckId} {...props} />;
+            }}
           />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/" component={Home} />
+
           <Route
             exact
             path="/accounts/:id/foodtrucks/:id/edit"
@@ -82,12 +83,7 @@ class App extends Component {
             exact
             path="/accounts/:id/foodtrucks/:id/delete"
             render={(props) => {
-              const foodtruckId = this.props.match.params.id;
-              const foodTruck = this.props.allFoodtrucks.find(
-                (foodTruck) => foodTruck.id == foodtruckId
-              );
-              debugger;
-              return <Delete {...props} />;
+              return <Delete {...props} delete={this.props.removeFoodtruck} />;
             }}
           />
           {/* <Redirect to="/no-match" /> */}

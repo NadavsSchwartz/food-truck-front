@@ -33,6 +33,7 @@ class NewFoodtruck extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const accountId = this.state.account_id;
+    debugger;
     if (this.props.ftId) {
       const foodTruckId = this.props.ftId;
       this.props.onSubmit(
@@ -42,7 +43,7 @@ class NewFoodtruck extends React.Component {
         this.props.history
       );
     } else {
-      this.props.onSubmit(this.state, accountId);
+      this.props.onSubmit(this.state, accountId, this.props.history);
     }
   };
 
