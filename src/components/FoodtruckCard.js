@@ -9,6 +9,7 @@ const FoodtruckCard = ({
   allFoodtrucks,
 }) => {
   if (foodtruck && loggedIn) {
+    debugger
     return (
       <div className="center">
         <div className="col s12 m5">
@@ -46,19 +47,7 @@ const FoodtruckCard = ({
                 ) : null}
               </div>
             </div>
-            {/* <div className="edit">
-                  {" "}
-                  {foodtruck.account_id === currentAccount.account.action.id ? (
-                    <button
-                      className="btn btn-indigo sm"
-                      href={`/recipes/${foodtruck.id}/edit`}
-                    >
-                      Edit This Foodtruck
-                    </button>
-                  ) : (
-                    "You can only edit foodtrucks that belongs to your account"
-                  )} 
-                </div>*/}
+
           </div>
         </div>
       </div>
@@ -67,7 +56,6 @@ const FoodtruckCard = ({
     const foodtruck = allFoodtrucks.find(
       (ft) => ft.account_id == currentAccount.account.action.id
     );
-    debugger;
     return (
       <div className="center">
         <div className="col s12 m5">
@@ -118,7 +106,7 @@ const FoodtruckCard = ({
       </div>
     );
   }
-  return;
+  return "hey";
 };
 
 const mapStateToProps = (state) => {

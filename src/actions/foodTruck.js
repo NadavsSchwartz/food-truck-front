@@ -8,8 +8,8 @@ import {
 import { resetFoodtruckForm } from "./handleNewFoodtruckForm";
 export const getAllFoodtrucks = () => {
   return (dispatch, getState) => {
-    console.log(getState());
     return fetch(`http://localhost:3000/api/v1/foodtrucks`, {
+      credentials: "include",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export const getAllFoodtrucks = () => {
       .then((res) => res.json())
       .then((response) => {
         if (response.error) {
-          alert(response.error);
+          debugger;
         } else {
           dispatch(setAllFoodtrucks(response));
         }

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import Navbar from "./components/NavBar";
+import Navbar from "./components/Navbar";
 import NewFoodtruck from "./components/NewFoodtruck";
 import Delete from "./components/Delete";
 import Login from "./components/sessions/Login";
 import Home from "./containers/Home";
+import AccountPage from "./containers/AccountPage";
+
 import Signup from "./components/sessions/Signup";
 import { connect } from "react-redux";
 import { getCurrentAccount } from "./actions/currentAccount";
@@ -28,8 +30,19 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route exact path="/login" component={Login} />
           <Route exact path="/" component={Home} />
+
+          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/accounts/:id"
+            render={() => (
+              <AccountPage
+                account={this.props.currentAccount}
+                alltrucks={this.props.allFoodtrucks}
+              />
+            )}
+          />
           <Route
             exact
             path="/signup"
@@ -42,8 +55,8 @@ class App extends Component {
               <NewFoodtruck
                 onSubmit={this.props.createFoodtruck}
                 {...props}
-                account_id={this.props.currentAccount.account.action.id}
-                buttonText="Create A Foodtruck"
+                account={this.props.currentAccount}
+                buttonText="Create A New Foodtruck"
               />
             )}
           />
@@ -52,26 +65,19 @@ class App extends Component {
             path="/accounts/:id/foodtrucks/:id"
             render={(props) => {
               const foodtruckId = this.props.match.params.id;
-              // const foodTruck = this.props.allFoodtrucks.find(
-              //   (foodTruck) => foodTruck.id == foodtruckId
-              // );
+
               return <FoodtruckCard truck_id={foodtruckId} {...props} />;
             }}
           />
 
           <Route
-            exact
             path="/accounts/:id/foodtrucks/:id/edit"
             render={(props) => {
-              const foodtruckId = this.props.match.params.id;
-              const foodTruck = this.props.allFoodtrucks.find(
-                (foodTruck) => foodTruck.id == foodtruckId
-              );
               return (
                 <NewFoodtruck
                   onSubmit={this.props.updateFoodtruck}
-                  foodtruck={foodTruck}
-                  account_id={this.props.currentAccount.account.action.id}
+                  allFoodtrucks={this.props.allFoodtrucks}
+                  account={this.props.currentAccount}
                   {...props}
                   buttonText="Update Foodtruck"
                   ftId={props.match.params.id}
@@ -86,7 +92,7 @@ class App extends Component {
               return <Delete {...props} delete={this.props.removeFoodtruck} />;
             }}
           />
-          {/* <Redirect to="/no-match" /> */}
+          <Redirect to="/no-match" />
         </Switch>
       </div>
     );
