@@ -11,7 +11,6 @@ class AccountPage extends Component {
         <FoodtruckCard key={ft.id} foodtruck={ft} />
       ));
     } else if (Foodtrucks && account) {
-      debugger;
       return (
         <div className="flow-text center">
           no foodtrucks were found, feel free to add one!

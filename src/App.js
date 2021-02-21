@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "./components/Navbar";
 import NewFoodtruck from "./components/NewFoodtruck";
-import Delete from "./components/Delete";
+import Delete from "./components/DeleteFoodtruck";
 import Login from "./components/sessions/Login";
 import Home from "./containers/Home";
 import AccountPage from "./containers/AccountPage";
@@ -18,6 +18,7 @@ import {
   updateFoodtruck,
   removeFoodtruck,
 } from "./actions/foodTruck";
+import LookupFoodtruck from "./components/LookupFoodtruck";
 
 class App extends Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
 
           <Route exact path="/login" component={Login} />
+
           <Route
             exact
             path="/accounts/:id"
@@ -48,6 +50,16 @@ class App extends Component {
             path="/signup"
             render={({ history }) => <Signup history={history} />}
           />
+          {/* <Route
+            exact
+            path="/accounts/:id/foodtrucks/lookup"
+            render={() => (
+              <LookupFoodtruck
+                account={this.props.currentAccount}
+                alltrucks={this.props.allFoodtrucks}
+              />
+            )}
+          /> */}
           <Route
             exact
             path="/accounts/:id/foodtrucks/new"
@@ -71,6 +83,7 @@ class App extends Component {
           />
 
           <Route
+            exact
             path="/accounts/:id/foodtrucks/:id/edit"
             render={(props) => {
               return (

@@ -17,16 +17,17 @@ export default function manageFoodtruck(state = initialState, action) {
     case "ADD_FOODTRUCK":
       return {
         ...state,
-        allFoodtrucks: [...state.allFoodtrucks, action.action],
+        allFoodtrucks: [, action.action],
       };
     case "UPDATE_FOODTRUCK":
+      const oldIndex = state.allFoodtrucks.find((ft) => {
+        return ft.id == action.action.id;
+      });
+      const newIndex = state.allFoodtrucks.indexOf(oldIndex);
+      state.allFoodtrucks[newIndex] = action.action;
       return {
         ...state,
-        allFoodtrucks: state.allFoodtrucks.splice(
-          action.action.foodtruck_id,
-          1,
-          action.action
-        ),
+        allFoodtrucks: [...state.allFoodtrucks],
       };
     case "DELETE_FOODTRUCK":
       return {

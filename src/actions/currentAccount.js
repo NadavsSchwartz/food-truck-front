@@ -30,8 +30,7 @@ export const login = (credentials, history) => {
         } else {
           dispatch(setCurrentAccount(response.account));
           dispatch(resetLoginForm());
-          alert("You have logged in successfully.");
-          history.push("/account");
+          history.push(`/accounts/${response.account.id}`);
           console.log(getCurrentAccount());
         }
       })
@@ -76,7 +75,6 @@ export const logout = () => {
 };
 
 export const getCurrentAccount = () => {
-  console.log("hello");
   return (dispatch, getState) => {
     console.log(getState());
     return fetch("http://localhost:3000/api/v1/get_current_account", {
