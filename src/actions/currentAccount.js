@@ -31,7 +31,7 @@ export const login = (credentials, history) => {
           dispatch(setCurrentAccount(response.account));
           dispatch(resetLoginForm());
           alert("You have logged in successfully.");
-          history.push("/account");
+          history.push("/");
           console.log(getCurrentAccount());
         }
       })

@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 class Delete extends Component {
   handleClick = () => {
+    debugger;
     if (this.props.allFoodtrucks && this.props.currentAccount) {
-      const accId = this.props.currentAccount.account.action.id;
       const foodtruck = this.props.allFoodtrucks.find(
-        (ft) => (ft.account_id = accId)
+        (ft) => ft.account_id == this.props.currentAccount.account.action.id
       );
-      this.props.delete(foodtruck.id, accId, this.props.history);
+      this.props.delete(
+        foodtruck.id,
+        this.props.currentAccount.account.action.id,
+        this.props.history
+      );
     } else {
       return "error";
     }
