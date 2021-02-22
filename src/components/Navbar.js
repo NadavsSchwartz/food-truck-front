@@ -6,80 +6,60 @@ import { Link } from "react-router-dom";
 const Navbar = (props) => {
   const logoutRedirect = () => {
     props.logout();
+    alert("You have successfully logged out. Have a nice day!");
   };
 
   const render = () => {
     if (props.loggedIn && props.currentAccount.account.action) {
-      const { id } = props.currentAccount.account.action;
       return (
-        <>
-          <Link to="/" className="brand-logo left indigo-text">
+        <div className="nav-wrapper">
+          <Link to="/" className="brand-logo left">
             FoodTrucks
           </Link>
-          <ul id="nav" className="right ">
-            {/* <li>
-              <Link
-                to={`/accounts/${id}/foodtrucks/lookup`}
-                className="indigo-text"
-              >
-                Lookup a New truck
-              </Link>
-            </li> */}
+          <ul id="nav-mobile" className="right center-on-med-and-down">
             <li>
               <Link
-                to={`/accounts/${id}/foodtrucks/new`}
-                className="indigo-text"
+                to={`/accounts/${props.currentAccount.account.action.id}/foodtrucks/new`}
               >
-                New truck
+                New Foodtruck
               </Link>
             </li>
             <li>
-              <Link to={`/accounts/${id}`} className="indigo-text">
+              <Link to={`/accounts/${props.currentAccount.account.action.id}`}>
                 My Foodtrucks
               </Link>
             </li>
             <li onClick={logoutRedirect}>
-              <Link to="/logout" className="indigo-text">
-                Log out
-              </Link>
+              <Link to="/">Log out</Link>
             </li>
           </ul>
-        </>
+        </div>
       );
     } else {
       return (
-        <>
-          <div>
-            <div className="nav-wrapper ">
-              <Link to="/" className="brand-logo left">
-                FoodTrucks
-              </Link>
-              <ul id="nav-mobile" className="right center-on-med-and-down">
-                <li>
-                  <Link to="/signup">Sign Up</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
-            </div>
+        <div>
+          <div className="nav-wrapper ">
+            <ul id="nav-mobile" className="right center-on-med-and-down">
+              <li>
+                <Link to="/signup">Sign Up</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            </ul>
           </div>
-        </>
+        </div>
       );
     }
   };
   return (
-    <div>
-      <nav className="white">
-        {render()}
-        {/* <div className="right show-on-small">
-          <Sidenav />
-        </div> */}
+    <div className="navbar">
+      <nav>
+        <div className="navbar-container indigo">{render()}</div>
       </nav>
     </div>
   );
 };
-
 const mapStateToProps = (state) => {
   return {
     currentAccount: state.currentAccount,

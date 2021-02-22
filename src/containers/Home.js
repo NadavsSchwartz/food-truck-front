@@ -1,27 +1,32 @@
-import React from "react";
+import React, { Component } from "react";
 
-import background from "/Users/nadavschwartz/Desktop/food_truck-frontend/food_truck_front/src/background.jpg";
+import FoodtruckCard from "../components/FoodtruckCard";
 
-const Home = () => {
-  return (
-    <div
-      style={{
-        backgroundImage: `url(${background})`,
-        overflow: "hidden",
-        class: "responsive-img",
-        height: "100%",
-        width: "100%",
-      }}
-    >
-      {/* <img
-        className="responsive-img"
-        src={background}
-        alt="asd"
-        style={{ objectFit: "cover" }}
-      /> */}
-
-      <h1 style={{ height: "100%", width: "100%" }}>a</h1>
-    </div>
-  );
-};
+class Home extends Component {
+  renderFoodtruckCards = () => {
+    const Foodtrucks = this.props.alltrucks;
+    const account = this.props.account;
+    if (Foodtrucks && Foodtrucks.length > 0) {
+      return Foodtrucks.map((ft) => (
+        <FoodtruckCard key={ft.id} foodtruck={ft} />
+      ));
+    } else if (Foodtrucks && account) {
+      debugger;
+      return (
+        <div className="flow-text center">
+          no foodtrucks were found, feel free to add one!
+        </div>
+      );
+    } else if (!account) {
+      return (
+        <div className="flow-text center">
+          Login to add foodtrucks to your profile!
+        </div>
+      );
+    }
+  };
+  render() {
+    return <div className="div">{this.renderFoodtruckCards()}</div>;
+  }
+}
 export default Home;
