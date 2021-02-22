@@ -29,7 +29,20 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path="/login" component={Login} />
+<<<<<<< HEAD
           <Route exact path="/" component={Home} />
+=======
+          <Route
+            exact
+            path="/accounts/:id"
+            render={() => (
+              <AccountPage
+                account={this.props.currentAccount}
+                alltrucks={this.props.allFoodtrucks}
+              />
+            )}
+          />
+>>>>>>> parent of 4bd7928b... responsiveness and future imporovment for google places/map
           <Route
             exact
             path="/signup"
@@ -60,7 +73,6 @@ class App extends Component {
           />
 
           <Route
-            exact
             path="/accounts/:id/foodtrucks/:id/edit"
             render={(props) => {
               const foodtruckId = this.props.match.params.id;

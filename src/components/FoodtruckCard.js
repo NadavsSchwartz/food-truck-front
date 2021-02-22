@@ -9,6 +9,7 @@ const FoodtruckCard = ({
   allFoodtrucks,
 }) => {
   if (foodtruck && loggedIn) {
+    debugger
     return (
       <div className="center">
         <div className="col s12 m5">
@@ -46,6 +47,7 @@ const FoodtruckCard = ({
                 ) : null}
               </div>
             </div>
+<<<<<<< HEAD
             {/* <div className="edit">
                   {" "}
                   {foodtruck.account_id === currentAccount.account.action.id ? (
@@ -59,6 +61,9 @@ const FoodtruckCard = ({
                     "You can only edit foodtrucks that belongs to your account"
                   )} 
                 </div>*/}
+=======
+
+>>>>>>> parent of 4bd7928b... responsiveness and future imporovment for google places/map
           </div>
         </div>
       </div>
@@ -118,7 +123,11 @@ const FoodtruckCard = ({
       </div>
     );
   }
+<<<<<<< HEAD
   return;
+=======
+  return "hey";
+>>>>>>> parent of 4bd7928b... responsiveness and future imporovment for google places/map
 };
 
 const mapStateToProps = (state) => {

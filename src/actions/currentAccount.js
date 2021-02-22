@@ -31,7 +31,11 @@ export const login = (credentials, history) => {
           dispatch(setCurrentAccount(response.account));
           dispatch(resetLoginForm());
           alert("You have logged in successfully.");
+<<<<<<< HEAD
           history.push("/");
+=======
+          history.push("/account");
+>>>>>>> parent of 4bd7928b... responsiveness and future imporovment for google places/map
           console.log(getCurrentAccount());
         }
       })
