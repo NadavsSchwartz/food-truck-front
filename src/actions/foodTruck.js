@@ -101,15 +101,16 @@ export const createFoodtruck = (foodData, accountId, history) => {
         } else {
           dispatch(addFoodtruck(response));
           dispatch(resetFoodtruckForm());
+
           alert("New Foodtruck Added successfuly.");
-          history.push("/");
+          history.push(`/accounts/${accountId}`);
         }
       })
       .catch(console.log);
   };
 };
 
-export const removeFoodtruck = (foodtruckId, accountId, history) => {
+export const removeFoodtruck = (foodtruckId, { accountId }, history) => {
   return (dispatch) => {
     const url = `http://localhost:3000/api/v1/accounts/${accountId}/foodtrucks/${foodtruckId}`;
     return fetch(url, {
@@ -125,7 +126,7 @@ export const removeFoodtruck = (foodtruckId, accountId, history) => {
         } else {
           dispatch(deleteFoodtruck(response));
           alert("Foodtruck deleted successfully.");
-          history.push("/");
+          history.push(`/`);
         }
       })
       .catch(console.log);

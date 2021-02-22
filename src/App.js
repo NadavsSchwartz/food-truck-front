@@ -20,6 +20,7 @@ import {
 class App extends Component {
   componentDidMount() {
     this.props.getCurrentAccount();
+
     this.props.getAllFoodtrucks();
   }
 
@@ -64,10 +65,15 @@ class App extends Component {
             exact
             path="/accounts/:id/foodtrucks/:id"
             render={(props) => {
+<<<<<<< Updated upstream
               const foodtruckId = this.props.match.params.id;
               // const foodTruck = this.props.allFoodtrucks.find(
               //   (foodTruck) => foodTruck.id == foodtruckId
               // );
+=======
+              const foodtruckId = this.props.location.pathname.split("/").pop();
+
+>>>>>>> Stashed changes
               return <FoodtruckCard truck_id={foodtruckId} {...props} />;
             }}
           />

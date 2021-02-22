@@ -15,6 +15,7 @@ class Home extends Component {
     } else if (this.props.currentAccount && this.props.currentAccount.account) {
 =======
 
+<<<<<<< Updated upstream
 import FoodtruckCard from "../components/FoodtruckCard";
 
 class Home extends Component {
@@ -55,6 +56,10 @@ const mapStateToProps = (state) => {
     currentAccount: getCurrentAccount,
     allFoodtrucks: state.foodtruckReducer,
   };
+=======
+const Home = () => {
+  return <div>Homepage(google map implementation)</div>;
+>>>>>>> Stashed changes
 };
 export default connect(mapStateToProps, null)(Home);
 =======

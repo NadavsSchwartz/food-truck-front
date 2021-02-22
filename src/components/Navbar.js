@@ -37,6 +37,7 @@ const Navbar = (props) => {
       );
     } else {
       return (
+<<<<<<< Updated upstream
         <div>
           <div className="nav-wrapper ">
             <ul id="nav-mobile" className="right center-on-med-and-down">
@@ -47,6 +48,27 @@ const Navbar = (props) => {
                 <Link to="/login">Login</Link>
               </li>
             </ul>
+=======
+        <>
+          <div>
+            <div className="nav-wrapper ">
+              <Link to="/" className="brand-logo left indigo-text">
+                FoodTrucks
+              </Link>
+              <ul id="nav-mobile" className="right center-on-med-and-down">
+                <li>
+                  <Link to="/signup" className="indigo-text">
+                    Sign Up
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/login" className="indigo-text">
+                    Login
+                  </Link>
+                </li>
+              </ul>
+            </div>
+>>>>>>> Stashed changes
           </div>
         </div>
       );
