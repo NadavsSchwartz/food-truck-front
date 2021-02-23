@@ -1,17 +1,19 @@
-import React, { Component } from "react";
-
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import FoodtruckCard from "../components/FoodtruckCard";
 
-class AccountPage extends Component {
-  renderFoodtruckCards = () => {
-    const Foodtrucks = this.props.alltrucks;
-    const account = this.props.account;
-    if (Foodtrucks && Foodtrucks.length > 0) {
-      return Foodtrucks.map((ft) => (
-        <FoodtruckCard key={ft.id} foodtruck={ft} />
+const AccountPage = ({ allFoodtrucks, account }) => {
+  const renderFoodtruckCards = () => {
+    if (allFoodtrucks && allFoodtrucks.length > 0) {
+      return allFoodtrucks.map((foodtruck) => (
+        <FoodtruckCard
+          key={foodtruck.id}
+          AccountPageFoodtrucks={foodtruck}
+          Account={account}
+        />
       ));
-    } else if (Foodtrucks && account) {
-      debugger;
+    } else if (allFoodtrucks.length === 0 && account) {
       return (
         <div className="flow-text center">
           no foodtrucks were found, feel free to add one!
@@ -25,8 +27,12 @@ class AccountPage extends Component {
       );
     }
   };
-  render() {
-    return <div className="div">{this.renderFoodtruckCards()}</div>;
-  }
-}
-export default AccountPage;
+
+  return <div className="div">{renderFoodtruckCards()}</div>;
+};
+const mapStateToProps = (state) => {
+  return {
+    allFoodtrucks: state.foodtruckReducer.allFoodtrucks,
+  };
+};
+export default connect(mapStateToProps)(AccountPage);

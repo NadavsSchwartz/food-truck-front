@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "./components/NavBar";
+import Navbar from "./components/Navbar";
 import NewFoodtruck from "./components/NewFoodtruck";
 import Delete from "./components/Delete";
 import Login from "./components/sessions/Login";
@@ -16,12 +16,11 @@ import {
   updateFoodtruck,
   removeFoodtruck,
 } from "./actions/foodTruck";
+import AccountPage from "./containers/AccountPage";
 
 class App extends Component {
   componentDidMount() {
     this.props.getCurrentAccount();
-
-    this.props.getAllFoodtrucks();
   }
 
   render() {
@@ -29,21 +28,8 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route exact path="/login" component={Login} />
-<<<<<<< HEAD
           <Route exact path="/" component={Home} />
-=======
-          <Route
-            exact
-            path="/accounts/:id"
-            render={() => (
-              <AccountPage
-                account={this.props.currentAccount}
-                alltrucks={this.props.allFoodtrucks}
-              />
-            )}
-          />
->>>>>>> parent of 4bd7928b... responsiveness and future imporovment for google places/map
+          <Route exact path="/login" component={Login} />
           <Route
             exact
             path="/signup"
@@ -65,16 +51,17 @@ class App extends Component {
             exact
             path="/accounts/:id/foodtrucks/:id"
             render={(props) => {
-<<<<<<< Updated upstream
-              const foodtruckId = this.props.match.params.id;
-              // const foodTruck = this.props.allFoodtrucks.find(
-              //   (foodTruck) => foodTruck.id == foodtruckId
-              // );
-=======
               const foodtruckId = this.props.location.pathname.split("/").pop();
-
->>>>>>> Stashed changes
-              return <FoodtruckCard truck_id={foodtruckId} {...props} />;
+              const foodTruck = this.props.allFoodtrucks.find(
+                (foodTruck) => foodTruck.id == foodtruckId
+              );
+              return (
+                <FoodtruckCard
+                  SingleFoodtruck={foodTruck}
+                  Account={this.props.currentAccount.account.action}
+                  {...props}
+                />
+              );
             }}
           />
 
@@ -103,6 +90,16 @@ class App extends Component {
             render={(props) => {
               return <Delete {...props} delete={this.props.removeFoodtruck} />;
             }}
+          />
+          <Route
+            exact
+            path="/accounts/:id"
+            render={(props) => (
+              <AccountPage
+                account={this.props.currentAccount.account.action}
+                {...props}
+              />
+            )}
           />
           {/* <Redirect to="/no-match" /> */}
         </Switch>

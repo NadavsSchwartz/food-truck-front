@@ -1,3 +1,5 @@
+import { clearFoodtrucks } from "../reducers/foodtruckReducer";
+import { getAllFoodtrucks } from "./foodTruck";
 import { resetLoginForm } from "./handleLoginForm";
 import { resetSignupForm } from "./handleSignupForm";
 
@@ -29,14 +31,12 @@ export const login = (credentials, history) => {
           alert(response.error);
         } else {
           dispatch(setCurrentAccount(response.account));
+          dispatch(getAllFoodtrucks(response.account.id));
+
           dispatch(resetLoginForm());
+
           alert("You have logged in successfully.");
-<<<<<<< HEAD
           history.push("/");
-=======
-          history.push("/account");
->>>>>>> parent of 4bd7928b... responsiveness and future imporovment for google places/map
-          console.log(getCurrentAccount());
         }
       })
       .catch(console.log);
@@ -73,6 +73,7 @@ export const signup = (credentials, history) => {
 export const logout = () => {
   return (dispatch) => {
     dispatch(clearCurrentAccount());
+    dispatch(clearFoodtrucks());
     return fetch("http://localhost:3000/api/v1/logout", {
       method: "DELETE",
     });
@@ -80,9 +81,7 @@ export const logout = () => {
 };
 
 export const getCurrentAccount = () => {
-  console.log("hello");
   return (dispatch, getState) => {
-    console.log(getState());
     return fetch("http://localhost:3000/api/v1/get_current_account", {
       credentials: "include",
       method: "GET",
@@ -96,11 +95,13 @@ export const getCurrentAccount = () => {
           console.log(response.error);
         } else {
           console.log(response.account);
+          dispatch(getAllFoodtrucks(response.account.id));
           if (
             response.loggedIn &&
             getState().currentAccount.loggedIn === false
           ) {
             dispatch(setCurrentAccount(response.account));
+            dispatch(getAllFoodtrucks(response.account.id));
           }
         }
       })

@@ -1,15 +1,13 @@
 import {
   addFoodtruck,
   setAllFoodtrucks,
-  fetchFoodtruck,
   deleteFoodtruck,
   updateFoodtruckData,
 } from "../reducers/foodtruckReducer";
 import { resetFoodtruckForm } from "./handleNewFoodtruckForm";
-export const getAllFoodtrucks = () => {
-  return (dispatch, getState) => {
-    console.log(getState());
-    return fetch(`http://localhost:3000/api/v1/foodtrucks`, {
+export const getAllFoodtrucks = (account_id) => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/api/v1/accounts/${account_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -20,38 +18,37 @@ export const getAllFoodtrucks = () => {
         if (response.error) {
           alert(response.error);
         } else {
-          dispatch(setAllFoodtrucks(response));
+          dispatch(setAllFoodtrucks(response.food_trucks));
         }
-      })
-      .catch(console.log);
+      });
   };
 };
 
-export const getFoodtruck = (accountId, foodtruckId) => {
-  return (dispatch) => {
-    return (
-      fetch(
-        `http://localhost:3000/api/v1/accounts/${accountId}/food_trucks/${foodtruckId}`
-      ),
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-        .then((res) => res.json())
-        .then((response) => {
-          debugger;
-          if (response.error) {
-            alert(response.error);
-          } else {
-            dispatch(fetchFoodtruck(response));
-          }
-        })
-        .catch(console.log)
-    );
-  };
-};
+// export const getFoodtruck = (accountId, foodtruckId) => {
+//   return (dispatch) => {
+//     return (
+//       fetch(
+//         `http://localhost:3000/api/v1/accounts/${accountId}/food_trucks/${foodtruckId}`
+//       ),
+//       {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//         .then((res) => res.json())
+//         .then((response) => {
+//           debugger;
+//           if (response.error) {
+//             alert(response.error);
+//           } else {
+//             dispatch(fetchFoodtruck(response));
+//           }
+//         })
+//         .catch(console.log)
+//     );
+//   };
+// };
 
 export const updateFoodtruck = (foodData, accountId, foodtruckId, history) => {
   return (dispatch) => {

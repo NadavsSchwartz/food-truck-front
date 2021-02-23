@@ -22,21 +22,14 @@ export default function manageFoodtruck(state = initialState, action) {
     case "UPDATE_FOODTRUCK":
       return {
         ...state,
-<<<<<<< HEAD
-        allFoodtrucks: state.allFoodtrucks.map((foodtruck) => {
-          if (action.action.id === foodtruck.id) {
-            return action.action;
-          }
-          return foodtruck;
-        }),
-=======
         allFoodtrucks: state.allFoodtrucks.splice(
           action.action.foodtruck_id,
           1,
           action.action
         ),
->>>>>>> parent of 4bd7928b... responsiveness and future imporovment for google places/map
       };
+    case "CLEAR_FOODTRUCKS":
+      return { allFoodtrucks: [] };
     case "DELETE_FOODTRUCK":
       debugger;
       return {
@@ -85,5 +78,11 @@ export const deleteFoodtruck = (foodtruck) => {
   return {
     type: "DELETE_FOODTRUCK",
     action: foodtruck,
+  };
+};
+
+export const clearFoodtrucks = () => {
+  return {
+    type: "CLEAR_FOODTRUCKS",
   };
 };
