@@ -1,8 +1,15 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+
 import { Link } from "react-router-dom";
 
-const FoodtruckCard = ({ Account, AccountPageFoodtrucks, SingleFoodtruck }) => {
+const FoodtruckCard = ({
+  Account,
+  AccountPageFoodtrucks,
+  SingleFoodtruck,
+  currentAccount,
+}) => {
   if (SingleFoodtruck && Account) {
     const ft = SingleFoodtruck;
     return (
@@ -48,7 +55,6 @@ const FoodtruckCard = ({ Account, AccountPageFoodtrucks, SingleFoodtruck }) => {
     );
   } else if (AccountPageFoodtrucks && Account) {
     const foodtruck = AccountPageFoodtrucks;
-
     return (
       <div className=" container center">
         <div className="col s12 m6 l6">
@@ -79,6 +85,7 @@ const FoodtruckCard = ({ Account, AccountPageFoodtrucks, SingleFoodtruck }) => {
                     </Link>
                     <Link
                       to={`/accounts/${foodtruck.account_id}/foodtrucks/${foodtruck.id}/delete`}
+                      params={{ foodtruck: {foodtruck} }}
                     >
                       delete
                     </Link>
@@ -93,5 +100,9 @@ const FoodtruckCard = ({ Account, AccountPageFoodtrucks, SingleFoodtruck }) => {
   }
   return <Redirect to="/" />;
 };
-
-export default FoodtruckCard;
+const mapStateToProps = (state) => {
+  return {
+    currentAccount: state.currentAccount.account,
+  };
+};
+export default connect(mapStateToProps)(FoodtruckCard);

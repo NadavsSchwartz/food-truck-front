@@ -31,16 +31,12 @@ export default function manageFoodtruck(state = initialState, action) {
     case "CLEAR_FOODTRUCKS":
       return { allFoodtrucks: [] };
     case "DELETE_FOODTRUCK":
-      debugger;
       return {
-        ...state,
-        allFoodtrucks: state.allFoodtrucks.map((foodtruck) => {
-          if (action.action.id === foodtruck.id) {
-            return action.action;
-          }
-          return foodtruck;
-        }),
+        allFoodtrucks: state.allFoodtrucks.filter(
+          (ft) => ft.id != action.action.foodtruck_id
+        ),
       };
+
     default:
       return state;
   }
@@ -74,7 +70,6 @@ export const fetchFoodtruck = (foodtruck) => {
 };
 
 export const deleteFoodtruck = (foodtruck) => {
-  debugger;
   return {
     type: "DELETE_FOODTRUCK",
     action: foodtruck,

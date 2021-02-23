@@ -24,32 +24,6 @@ export const getAllFoodtrucks = (account_id) => {
   };
 };
 
-// export const getFoodtruck = (accountId, foodtruckId) => {
-//   return (dispatch) => {
-//     return (
-//       fetch(
-//         `http://localhost:3000/api/v1/accounts/${accountId}/food_trucks/${foodtruckId}`
-//       ),
-//       {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       }
-//         .then((res) => res.json())
-//         .then((response) => {
-//           debugger;
-//           if (response.error) {
-//             alert(response.error);
-//           } else {
-//             dispatch(fetchFoodtruck(response));
-//           }
-//         })
-//         .catch(console.log)
-//     );
-//   };
-// };
-
 export const updateFoodtruck = (foodData, accountId, foodtruckId, history) => {
   return (dispatch) => {
     const url = `http://localhost:3000/api/v1/accounts/${accountId}/foodtrucks/${foodtruckId}`;
@@ -107,7 +81,7 @@ export const createFoodtruck = (foodData, accountId, history) => {
   };
 };
 
-export const removeFoodtruck = (foodtruckId, { accountId }, history) => {
+export const removeFoodtruck = (foodtruckId, accountId, history) => {
   return (dispatch) => {
     const url = `http://localhost:3000/api/v1/accounts/${accountId}/foodtrucks/${foodtruckId}`;
     return fetch(url, {
@@ -123,7 +97,7 @@ export const removeFoodtruck = (foodtruckId, { accountId }, history) => {
         } else {
           dispatch(deleteFoodtruck(response));
           alert("Foodtruck deleted successfully.");
-          history.push(`/`);
+          history.push(`/accounts/${accountId}`);
         }
       })
       .catch(console.log);
