@@ -4,9 +4,14 @@ class Delete extends Component {
   handleClick = () => {
     if (this.props.allFoodtrucks && this.props.currentAccount) {
       const accountId = this.props.currentAccount.account.action.id;
-      const foodtruck = this.props.allFoodtrucks.find(
-        (ft) => ft.id == this.props.match.params.id
-      );
+      let foodtruck = [];
+      if (this.props.allFoodtrucks.length > 1) {
+        foodtruck = this.props.allFoodtrucks.find(
+          (foodTruck) => foodTruck.id == this.props.match.params.id
+        );
+      } else {
+        foodtruck = this.props.allFoodtrucks[0];
+      }
 
       this.props.delete(foodtruck.id, accountId, this.props.history);
     } else {

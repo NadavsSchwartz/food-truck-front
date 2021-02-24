@@ -15,7 +15,7 @@ import FoodtruckCard from "../components/FoodtruckCard";
 
 class Home extends Component {
   render() {
-    return <div className="div">hello</div>;
+    return <div className="div">HomePage(google maps implenetaion)</div>;
   }
 }
 

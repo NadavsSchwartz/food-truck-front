@@ -12,7 +12,6 @@ const FoodtruckCard = ({
 }) => {
   if (SingleFoodtruck && Account) {
     const ft = SingleFoodtruck;
-    debugger;
     return (
       <div className=" container center">
         <div className="col s12 m6 l6">

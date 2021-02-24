@@ -31,10 +31,14 @@ export default function manageFoodtruck(state = initialState, action) {
     case "CLEAR_FOODTRUCKS":
       return { allFoodtrucks: [] };
     case "DELETE_FOODTRUCK":
-      return {
-        allFoodtrucks: state.allFoodtrucks.filter(
+      let updatedState = [];
+      if (state.allFoodtrucks.length > 1) {
+        updatedState = state.allFoodtrucks.filter(
           (ft) => ft.id != action.action.foodtruck_id
-        ),
+        );
+      }
+      return {
+        allFoodtrucks: updatedState,
       };
 
     default:

@@ -13,24 +13,30 @@ const Navbar = (props) => {
     if (props.loggedIn && props.currentAccount.account.action) {
       return (
         <div className="nav-wrapper">
-          <Link to="/" className="brand-logo left">
+          <Link to="/" className="brand-logo left indigo-text">
             FoodTrucks
           </Link>
           <ul id="nav-mobile" className="right center-on-med-and-down">
             <li>
               <Link
                 to={`/accounts/${props.currentAccount.account.action.id}/foodtrucks/new`}
+                className="indigo-text"
               >
                 New Foodtruck
               </Link>
             </li>
             <li>
-              <a href={`/accounts/${props.currentAccount.account.action.id}`}>
+              <a
+                href={`/accounts/${props.currentAccount.account.action.id}`}
+                className="indigo-text"
+              >
                 My Foodtrucks
               </a>
             </li>
             <li onClick={logoutRedirect}>
-              <Link to="/">Log out</Link>
+              <Link to="/" className="indigo-text">
+                Log out
+              </Link>
             </li>
           </ul>
         </div>
@@ -60,9 +66,9 @@ const Navbar = (props) => {
     }
   };
   return (
-    <div className="navbar">
-      <nav>
-        <div className="navbar-container indigo">{render()}</div>
+    <div>
+      <nav className="navbar grey lighten-5">
+        <div>{render()}</div>
       </nav>
     </div>
   );
