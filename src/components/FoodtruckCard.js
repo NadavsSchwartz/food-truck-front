@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 
-const FoodtruckCard = ({
-  Account,
-  AccountPageFoodtrucks,
-  SingleFoodtruck,
-  currentAccount,
-}) => {
+const FoodtruckCard = ({ Account, AccountPageFoodtrucks, SingleFoodtruck }) => {
+  const [score, setScore] = useState(0);
   if (SingleFoodtruck && Account) {
     const ft = SingleFoodtruck;
     return (
@@ -92,6 +88,9 @@ const FoodtruckCard = ({
                     </Link>
                   </p>
                 ) : null}
+                <button className="btn" onClick={() => setScore(score + 1)}>
+                  number of likes:{score}
+                </button>
               </div>
             </div>
           </div>
