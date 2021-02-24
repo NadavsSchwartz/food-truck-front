@@ -25,9 +25,9 @@ const Navbar = (props) => {
               </Link>
             </li>
             <li>
-              <Link to={`/accounts/${props.currentAccount.account.action.id}`}>
+              <a href={`/accounts/${props.currentAccount.account.action.id}`}>
                 My Foodtrucks
-              </Link>
+              </a>
             </li>
             <li onClick={logoutRedirect}>
               <Link to="/">Log out</Link>

@@ -7,7 +7,7 @@ import Home from "./containers/Home";
 import Signup from "./components/sessions/Signup";
 import { connect } from "react-redux";
 import { getCurrentAccount } from "./actions/currentAccount";
-import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import FoodtruckCard from "./components/FoodtruckCard";
 
 import {
@@ -52,9 +52,14 @@ class App extends Component {
             path="/accounts/:id/foodtrucks/:id"
             render={(props) => {
               const foodtruckId = this.props.location.pathname.split("/").pop();
-              const foodTruck = this.props.allFoodtrucks.find(
-                (foodTruck) => foodTruck.id == foodtruckId
-              );
+              let foodTruck = [];
+              if (this.props.allFoodtrucks.length > 1) {
+                foodTruck = this.props.allFoodtrucks.find(
+                  (foodTruck) => foodTruck.id == foodtruckId
+                );
+              } else {
+                foodTruck = this.props.allFoodtrucks;
+              }
               return (
                 <FoodtruckCard
                   SingleFoodtruck={foodTruck}
@@ -68,18 +73,26 @@ class App extends Component {
           <Route
             path="/accounts/:id/foodtrucks/:id/edit"
             render={(props) => {
-              const foodtruckId = this.props.match.params.id;
-              const foodTruck = this.props.allFoodtrucks.find(
-                (foodTruck) => foodTruck.id == foodtruckId
+              const foodtruckId = parseInt(
+                this.props.location.pathname.split("/").slice(-2, -1)
               );
+              let foodTruck = [];
+              if (this.props.allFoodtrucks.length > 1) {
+                foodTruck = this.props.allFoodtrucks.find(
+                  (foodTruck) => foodTruck.id == foodtruckId
+                );
+              } else {
+                foodTruck = this.props.allFoodtrucks;
+              }
+
               return (
                 <NewFoodtruck
                   onSubmit={this.props.updateFoodtruck}
-                  foodtruck={foodTruck}
+                  ft={foodTruck}
                   account_id={this.props.currentAccount.account.action.id}
                   {...props}
                   buttonText="Update Foodtruck"
-                  ftId={props.match.params.id}
+                  ftId={foodtruckId}
                 />
               );
             }}

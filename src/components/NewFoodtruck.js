@@ -1,5 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import M from "materialize-css";
+
 class NewFoodtruck extends React.Component {
   state = {
     name: "",
@@ -11,18 +13,20 @@ class NewFoodtruck extends React.Component {
     account_id: this.props.account_id,
   };
   componentDidMount() {
-    console.log(this.props);
-    // if (this.props.foodTruck) {
-    //   const { foodTruck } = this.props.foodTruck;
-    //   this.setState({
-    //     name: foodTruck.name,
-    //     location: foodTruck.location,
-    //     category: foodTruck.category,
-    //     hours: foodTruck.hours,
-    //     description: foodTruck.description,
-    //     score: foodTruck.score,
-    //   });
-    // }
+    const range = document.querySelectorAll("input[type=range]");
+    M.Range.init(range);
+
+    if (this.props.ft) {
+      const foodTruck = this.props.ft;
+      this.setState({
+        name: foodTruck.name,
+        location: foodTruck.location,
+        category: foodTruck.category,
+        hours: foodTruck.hours,
+        description: foodTruck.description,
+        score: foodTruck.score,
+      });
+    }
   }
   handleChange = (e) => {
     this.setState({
@@ -33,7 +37,6 @@ class NewFoodtruck extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const accountId = this.state.account_id;
-    debugger;
     if (this.props.ftId) {
       const foodTruckId = this.props.ftId;
       this.props.onSubmit(
@@ -72,7 +75,7 @@ class NewFoodtruck extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                   <div className="row">
                     <div className="col s12">
-                      <label htmlFor="name"></label>
+                      <label htmlFor="name">Foodtruck Name</label>
                       <input
                         className="validate"
                         type="text"
@@ -86,7 +89,7 @@ class NewFoodtruck extends React.Component {
                   </div>
                   <div className="row">
                     <div className="col s12">
-                      <label htmlFor="location"></label>
+                      <label htmlFor="location">Foodtruck Location</label>
                       <input
                         className="validate"
                         type="text"
@@ -100,7 +103,7 @@ class NewFoodtruck extends React.Component {
                   </div>
                   <div className="row">
                     <div className="col s12">
-                      <label htmlFor="category"></label>
+                      <label htmlFor="category">Foodtruck Category</label>
                       <input
                         className="validate"
                         type="text"
@@ -114,7 +117,7 @@ class NewFoodtruck extends React.Component {
                   </div>
                   <div className="row">
                     <div className="col s12">
-                      <label htmlFor="hours"></label>
+                      <label htmlFor="hours">Foodtruck Hours</label>
                       <input
                         className="validate"
                         type="text"
@@ -128,7 +131,9 @@ class NewFoodtruck extends React.Component {
                   </div>
                   <div className="row">
                     <div className="col s12">
-                      <label htmlFor="description"></label>
+                      <label htmlFor="description">
+                        Foodtruck's Description
+                      </label>
                       <input
                         className="validate"
                         type="text"
@@ -141,7 +146,7 @@ class NewFoodtruck extends React.Component {
                     </div>
                   </div>
                   <div className="row col s12">
-                    <label htmlFor="score"></label>
+                    <label htmlFor="score">Foodtruck Score</label>
                     <p className="range-field row col s12">
                       <input
                         className="validate"

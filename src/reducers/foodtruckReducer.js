@@ -20,13 +20,13 @@ export default function manageFoodtruck(state = initialState, action) {
         allFoodtrucks: [...state.allFoodtrucks, action.action],
       };
     case "UPDATE_FOODTRUCK":
+      const index = state.allFoodtrucks.indexOf(
+        state.allFoodtrucks.find((ft) => ft.id == action.action.id)
+      );
+      state.allFoodtrucks[index] = action.action;
       return {
         ...state,
-        allFoodtrucks: state.allFoodtrucks.splice(
-          action.action.foodtruck_id,
-          1,
-          action.action
-        ),
+        allFoodtrucks: action.action,
       };
     case "CLEAR_FOODTRUCKS":
       return { allFoodtrucks: [] };
@@ -58,13 +58,6 @@ export const addFoodtruck = (foodtruck) => {
 export const updateFoodtruckData = (foodtruck) => {
   return {
     type: "UPDATE_FOODTRUCK",
-    action: foodtruck,
-  };
-};
-
-export const fetchFoodtruck = (foodtruck) => {
-  return {
-    type: "FETCH_FOODTRUCK",
     action: foodtruck,
   };
 };

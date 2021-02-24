@@ -12,6 +12,7 @@ const FoodtruckCard = ({
 }) => {
   if (SingleFoodtruck && Account) {
     const ft = SingleFoodtruck;
+    debugger;
     return (
       <div className=" container center">
         <div className="col s12 m6 l6">
@@ -80,12 +81,13 @@ const FoodtruckCard = ({
                     </Link>
                     <Link
                       to={`/accounts/${foodtruck.account_id}/foodtrucks/${foodtruck.id}/edit`}
+                      params={{ foodtruck }}
                     >
                       EDIT
                     </Link>
                     <Link
                       to={`/accounts/${foodtruck.account_id}/foodtrucks/${foodtruck.id}/delete`}
-                      params={{ foodtruck: {foodtruck} }}
+                      params={{ foodtruck: { foodtruck } }}
                     >
                       delete
                     </Link>
